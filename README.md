@@ -1,12 +1,12 @@
-# OpenClaw Skills
+# Skills
 
-凌一的 OpenClaw Skills 集合
+凌一的 Skills 集合 - 通用工具和自动化脚本
 
 ## Skills 列表
 
 ### wechat-mp-publisher
 
-通用微信公众号创作与发布 Skill
+通用微信公众号创作与发布工具
 
 **功能：**
 - 话题创作（生成标题+大纲）
@@ -25,8 +25,8 @@ python3 init.py
 ## 安装
 
 ```bash
-git clone https://github.com/Jascenn/openclaw-skills.git
-cd openclaw-skills/wechat-mp-publisher
+git clone https://github.com/Jascenn/skills.git
+cd skills/wechat-mp-publisher
 ```
 
 ## 贡献
