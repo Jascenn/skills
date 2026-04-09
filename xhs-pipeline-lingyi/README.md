@@ -14,6 +14,8 @@
 
 **必须先安装底层库：**
 
+> 底层自动化引擎来自 [autoclaw-cc/xiaohongshu-skills](https://github.com/autoclaw-cc/xiaohongshu-skills)，本 skill 仅调用其脚本，不包含其代码。
+
 ```bash
 git clone https://github.com/autoclaw-cc/xiaohongshu-skills \
   ~/.openclaw/workspace/skills/xiaohongshu-skills
@@ -23,7 +25,9 @@ uv sync
 
 **可选：自动生图**
 
-需要 DashScope API key，申请地址：https://dashscope.aliyun.com
+使用阿里云 DashScope `qwen-image-2.0-pro` 模型生图，需要申请 API key：
+- 申请地址：https://dashscope.aliyun.com
+- 配置方式：`--setup` 时填入脚本路径，或设置环境变量 `DASHSCOPE_API_KEY`
 
 ## 安装
 
