@@ -45,6 +45,13 @@ python3 init.py
 git clone https://github.com/Jascenn/skills.git
 ```
 
-## 贡献
+## 贡献与安全
 
-欢迎提交 PR 或 Issue
+欢迎提交 PR 或 Issue。
+
+- 参与开发前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
+- 安全问题请按 [SECURITY.md](SECURITY.md) 私下报告，不要开公开 Issue。
+
+## 许可证
+
+本项目原创代码采用 [MIT License](LICENSE)。第三方依赖、上游项目与外部素材继续遵循各自许可证。
