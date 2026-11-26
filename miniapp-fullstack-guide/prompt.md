@@ -368,7 +368,7 @@ https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
 ❌ 错误示范：
 // project.config.json
 {
-  "appid": "wx1234567890abcdef"  // 硬编码AppID
+  "appid": "wxXXXXXXXXXXXXXXXX"  // 硬编码AppID
 }
 
 // app.js
@@ -437,7 +437,7 @@ module.exports = {
 
   // 跳转到其他小程序的AppID列表
   NAVIGATE_APP_IDS: [
-    // 'wx1234567890abcdef', // 示例：目标小程序AppID
+    // 'wxXXXXXXXXXXXXXXXX', // 示例：目标小程序AppID
   ],
 
   // 云开发配置
@@ -600,7 +600,7 @@ miniprogram_npm/
 ```json
 // project.config.local.json - 本地配置（不提交）
 {
-  "appid": "wx1234567890abcdef", // 你的真实AppID
+  "appid": "wxXXXXXXXXXXXXXXXX", // 你的真实AppID
   "setting": {
     "urlCheck": false
   }
@@ -678,7 +678,7 @@ module.exports = {
 // ❌ 硬编码方式
 {
   "navigateToMiniProgramAppIdList": [
-    "wx1234567890abcdef"
+    "wxXXXXXXXXXXXXXXXX"
   ]
 }
 ```
@@ -742,8 +742,8 @@ console.log(`✅ 已生成 ${env} 环境的 app.json`);
 ```json
 {
   "navigateToMiniProgramAppIdList": [
-    "wx1234567890abcdef", // 开发环境小程序
-    "wx9876543210fedcba"  // 生产环境小程序
+    "wxXXXXXXXXXXXXXXXX", // 开发环境小程序
+    "wxYYYYYYYYYYYYYYYY"  // 生产环境小程序
   ]
 }
 ```
