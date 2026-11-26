@@ -4,6 +4,23 @@
 
 ## Skills 列表
 
+### lingyi-mac-annual-apps
+
+年度 Mac 常用软件扫描、2400×1350 高清海报生成、离线编辑器与 [MacStack · lingyi](https://mac.lingyi.tools) 社区一键发布工具
+
+**功能：**
+- 优先读取 macOS 屏幕使用时间（`knowledgeC.db`）真实前台时长，自动回退 ActivityWatch 与 Spotlight 活跃天数
+- 原生提取 `.app` 高清透明图标，自动去噪与中英文分类，支持 AI CLI 检测
+- 零依赖 Swift 海报渲染器（支持杂志宋体 / 无衬线、自动桌面壁纸、背景高斯模糊、角标与署名）
+- 自带离线 Canvas 2D 交互编辑器，支持一键发布至 `https://mac.lingyi.tools` 及本地凭证撤回
+
+**一键安装：**
+```bash
+npx skills add Jascenn/skills --skill lingyi-mac-annual-apps
+```
+
+[查看详细文档](./lingyi-mac-annual-apps/SKILL.md)
+
 ### xhs-pipeline-lingyi
 
 小红书内容发布完整流水线

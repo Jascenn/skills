@@ -1,0 +1,169 @@
+<!--
+  [INPUT]: 加载 styles.css、app.js、public/data/apps-data.json、public/backgrounds/* 与 public/icons/*
+  [OUTPUT]: 提供可交互的《年度 Mac 常用软件》海报编辑器、本机应用筛选器、高清 PNG 导出与配置分享界面
+  [POS]: lingyi-mac-annual-apps Web 应用入口页面，零构建直接可运行于本地或任意静态托管平台
+  [PROTOCOL]: Update this header on change, then check GEMINI.md
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mac 年度常用软件 · 海报生成器与分享台</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-dot"></div>
+          <div>
+            <h1>Mac 年度常用软件 <span class="brand-badge">lingyi</span></h1>
+            <p id="metaSummary">正在读取本机扫描数据...</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <details class="action-menu">
+            <summary class="btn btn-ghost">数据 ▾</summary>
+            <div class="action-menu-pop">
+              <label class="menu-item" title="导入其他 Mac 扫描生成的 apps-data.json">
+                <span>导入 JSON 清单</span>
+                <input type="file" id="importJsonInput" accept=".json" hidden />
+              </label>
+              <button id="exportJsonBtn" class="menu-item" type="button">导出 JSON 配置</button>
+              <button id="exportCsvBtn" class="menu-item" type="button">导出完整 CSV</button>
+            </div>
+          </details>
+
+          <span class="action-divider" aria-hidden="true"></span>
+
+          <button id="shareLinkBtn" class="btn btn-ghost" type="button">分享链接</button>
+          <button id="copyPostBtn" class="btn btn-ghost" type="button">复制配文</button>
+
+          <span class="action-divider" aria-hidden="true"></span>
+
+          <button id="copyPngBtn" class="btn btn-secondary" type="button">复制图片</button>
+          <button id="downloadPngBtn" class="btn btn-primary" type="button">下载原图</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 主工作区 -->
+    <main class="workspace">
+      <!-- 左侧：吸顶实时海报预览 + 双行外观控制条 -->
+      <section class="stage-panel">
+        <div class="canvas-frame">
+          <canvas id="posterCanvas" width="2400" height="1350"></canvas>
+        </div>
+
+        <div class="control-card">
+          <!-- 第一行：文字内容 -->
+          <div class="appearance-row appearance-row-text">
+            <div class="control-group">
+              <label for="titleInput">海报主标题</label>
+              <input id="titleInput" type="text" value="2026 我的 Mac 常用软件" placeholder="输入海报主标题" />
+            </div>
+
+            <div class="control-group">
+              <label for="authorInput">左下角署名</label>
+              <input id="authorInput" type="text" maxlength="40" value="lingyi" placeholder="例如 lingyi" />
+            </div>
+
+            <div class="control-group">
+              <label for="subtitleInput">右下角备注（可选）</label>
+              <input id="subtitleInput" type="text" placeholder="例如 基于本机近 365 天活跃统计" />
+            </div>
+          </div>
+
+          <div class="control-sep"></div>
+
+          <!-- 第二行：视觉参数 -->
+          <div class="appearance-row appearance-row-style">
+            <div class="control-group">
+              <label for="fontSelect">字体风格</label>
+              <select id="fontSelect">
+                <option value="sans">无衬线 (PingFang / SF)</option>
+                <option value="serif">杂志宋体 (Songti SC)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="scrimRange">左侧遮罩 <span id="scrimValue" class="val-pill">55%</span></label>
+              <input id="scrimRange" type="range" min="15" max="85" value="55" />
+            </div>
+
+            <div class="control-group">
+              <label for="blurRange">背景模糊 <span id="blurValue" class="val-pill">0px</span></label>
+              <input id="blurRange" type="range" min="0" max="20" value="0" />
+            </div>
+
+            <div class="control-group control-toggles">
+              <label class="toggle-chip">
+                <input id="roundedToggle" type="checkbox" checked />
+                <span>圆角卡片</span>
+              </label>
+              <label class="toggle-chip">
+                <input id="badgeToggle" type="checkbox" />
+                <span>使用时长</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="control-sep"></div>
+
+          <!-- 第三行：氛围背景 -->
+          <div class="backdrop-row">
+            <span class="bar-label">氛围背景</span>
+            <div class="backdrop-list" id="backdropList"></div>
+            <label class="btn btn-ghost btn-sm upload-btn">
+              <span>+ 上传照片</span>
+              <input type="file" id="bgUploadInput" accept="image/*" hidden />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- 右侧：分类编排与全量本机应用库 -->
+      <aside class="editor-panel">
+        <div class="panel-tabs">
+          <button class="tab-btn active" data-tab="groups" type="button">
+            海报编排 <span id="selectedCountBadge" class="pill">0</span>
+          </button>
+          <button class="tab-btn" data-tab="library" type="button">
+            全部已安装 <span id="allCountBadge" class="pill">0</span>
+          </button>
+        </div>
+
+        <!-- Tab 1: 海报分组与排序 -->
+        <div id="tab-groups" class="tab-pane active">
+          <div class="pane-toolbar">
+            <button id="addGroupBtn" class="btn btn-ghost btn-sm" type="button">+ 新增分类</button>
+            <button id="undoBtn" class="btn btn-ghost btn-sm" type="button" disabled title="撤销上一步编排 (⌘Z)">↶ 撤销</button>
+            <button id="resetDefaultBtn" class="btn btn-ghost btn-sm toolbar-right" type="button">恢复推荐</button>
+          </div>
+          <div id="groupsContainer" class="groups-container"></div>
+        </div>
+
+        <!-- Tab 2: 全部扫描到的本机软件 -->
+        <div id="tab-library" class="tab-pane">
+          <div class="library-search">
+            <input id="searchInput" type="search" placeholder="搜索应用名称、Bundle ID 或分类..." />
+            <select id="libraryFilter">
+              <option value="active">仅近期活跃</option>
+              <option value="all">全部已安装</option>
+              <option value="selected">已在海报中</option>
+            </select>
+          </div>
+          <div id="libraryList" class="library-list"></div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
