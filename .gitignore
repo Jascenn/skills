@@ -2,5 +2,11 @@
 __pycache__/
 .DS_Store
 *.tar.gz
-config.env
+.env
+*.env
+!*.example.env
+!config.example.env
+*.backup
+*.local.*
 mp_cookie.txt
+healthcheck.json
