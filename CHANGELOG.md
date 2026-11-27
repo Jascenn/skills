@@ -6,6 +6,7 @@ All notable user-facing changes are documented here. The format follows Keep a C
 
 ### Added
 
+- Add `lingyi-session-title-organizer` cross-platform AI session title organizer skill.
 - Add contribution, security, issue-form, CODEOWNERS and license documentation.
 
 ### Security

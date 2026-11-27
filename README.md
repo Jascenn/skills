@@ -4,6 +4,23 @@
 
 ## Skills 列表
 
+### lingyi-session-title-organizer
+
+跨平台通用的 AI 会话标题整理助手（适用于 Antigravity、Codex、Claude Code 等客户端）
+
+**功能：**
+- 统一按「MMDD｜TYPE｜主题」规范整理未归档会话标题，8 个中文 TYPE 充当侧栏伪标签
+- 支持 3 天高亮窗口模式：仅最近 3 个自然日内的未置顶会话保留 Emoji，超期自动移除
+- 内置置顶保护、迁移/恢复日期保护与无主题会话直跳清单
+- 修改前强制输出 Before / After 对比表确认，仅改标题不触碰归档/置顶/排序，同时支持增量更新与定时静默模式
+
+**一键安装：**
+```bash
+npx skills add Jascenn/skills --skill lingyi-session-title-organizer
+```
+
+[查看详细文档](./lingyi-session-title-organizer/SKILL.md)
+
 ### lingyi-mac-annual-apps
 
 年度 Mac 常用软件扫描、2400×1350 高清海报生成、离线编辑器与 [MacStack · lingyi](https://mac.lingyi.tools) 社区一键发布工具
